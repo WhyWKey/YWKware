@@ -27,38 +27,38 @@ if (isfolder == false) then return game.Players.LocalPlayer:Kick("Exploit not su
 
 Hint.Text = "YWKware loading."
 
-if not isfolder("PTware") then
-	print("creating PTware folder")
-	makefolder("PTware")
+if not isfolder("YWKware") then
+	print("creating YWKware folder")
+	makefolder("YWKware")
 end
 
-if not isfolder("PTware/configs") then
-	print("creating PTware configs folder")
-	makefolder("PTware/configs")
+if not isfolder("YWKware/configs") then
+	print("creating YWKware configs folder")
+	makefolder("YWKware/configs")
 end
 
-if not isfile("PTware/autoload.txt") then
-	print("creating PTware autoload file")
-	writefile("PTware/autoload.txt", "")
+if not isfile("YWKware/autoload.txt") then
+	print("creating YWKware autoload file")
+	writefile("YWKware/autoload.txt", "")
 end
 
-if not isfile("PTware/custom_skins.txt") then
-	print("downloading PTware skins file")
-	writefile("PTware/custom_skins.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-customs/main/README.md"))
+if not isfile("YWKware/custom_skins.txt") then
+	print("downloading YWKware skins file")
+	writefile("YWKware/custom_skins.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-customs/main/README.md"))
 end
 
-if not isfile("PTware/custom_models.txt") then
-	print("downloading PTware custom models file")
-    writefile("PTware/custom_models.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-custom/main/README.md"))
+if not isfile("YWKware/custom_models.txt") then
+	print("downloading YWKware custom models file")
+    writefile("YWKware/custom_models.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-custom/main/README.md"))
 end
 
-if not isfile("PTware/inventories.txt") then
-	print("downloading PTware inventories file")
-	writefile("PTware/inventories.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-inv/main/README.md"))
+if not isfile("YWKware/inventories.txt") then
+	print("downloading YWKware inventories file")
+	writefile("YWKware/inventories.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-inv/main/README.md"))
 end
-if not isfile("PTware/skyboxes.txt") then
+if not isfile("YWKware/skyboxes.txt") then
 	print("Ok")
-	writefile("PTware/skyboxes.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-sky/main/README.md"))
+	writefile("YWKware/skyboxes.txt", game:HttpGet("https://raw.githubusercontent.com/WhyWKey/YWK-ware-sky/main/README.md"))
 end
 
 Hint.Text = "YWKware loading..."
@@ -83,8 +83,8 @@ local Hitboxes = {
 	["Legs"] = {"LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"}
 }
 
-local PTwareFolder = Instance.new("Folder", workspace)
-PTwareFolder.Name = "PTwareFolder"
+local YWKwareFolder = Instance.new("Folder", workspace)
+YWKwareFolder.Name = "YWKwareFolder"
 
 local oldOsPlatform = game.Players.LocalPlayer.OsPlatform
 local oldMusicT = game.Players.LocalPlayer.PlayerGui.Music.ValveT:Clone()
@@ -109,8 +109,8 @@ local FOVCircle = Drawing.new("Circle")
 local Cases = {}; for i,v in pairs(game.ReplicatedStorage.Cases:GetChildren()) do table.insert(Cases, v.Name) end
 
 local Configs = {}
-local Inventories = loadstring("return "..readfile("PTware/inventories.txt"))()
-local Skyboxes = loadstring("return "..readfile("PTware/skyboxes.txt"))()
+local Inventories = loadstring("return "..readfile("YWKware/inventories.txt"))()
+local Skyboxes = loadstring("return "..readfile("YWKware/skyboxes.txt"))()
 
 
 
@@ -261,7 +261,7 @@ local function GetLegitbotTarget()
 	for i,v in pairs(game.Players:GetPlayers()) do
 		if IsAlive(v) and v ~= LocalPlayer and not v.Character:FindFirstChild("ForceField") then
 			if library.pointers.AimbotTabCategoryLegitbotTeamCheck.value == false or GetTeam(v) ~= GetTeam(LocalPlayer) then
-				if library.pointers.AimbotTabCategoryLegitbotVisibilityCheck.value == false or IsVisible(v.Character.Head.Position, {v.Character, LocalPlayer.Character, PTwareFolder, workspace.CurrentCamera}) == true then
+				if library.pointers.AimbotTabCategoryLegitbotVisibilityCheck.value == false or IsVisible(v.Character.Head.Position, {v.Character, LocalPlayer.Character, YWKwareFolder, workspace.CurrentCamera}) == true then
 					local Vector, onScreen = workspace.CurrentCamera:WorldToScreenPoint(v.Character.HumanoidRootPart.Position)
 					local FOV = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Vector.X, Vector.Y)).magnitude
 					
@@ -791,13 +791,13 @@ sethiddenproperty(game:GetService("Lighting"),"Technology",Enum.Technology.Futur
 end)
 
 VisualsTabCategoryOthers:AddDropdown("Skybox", TableToNames(Skyboxes), "Default", "VisualsTabCategoryOthersSkybox", function(val)
-	if game.Lighting:FindFirstChild("PTware_SKYBOX") then
-		game.Lighting:FindFirstChild("PTware_SKYBOX"):Destroy()
+	if game.Lighting:FindFirstChild("YWKware_SKYBOX") then
+		game.Lighting:FindFirstChild("YWKware_SKYBOX"):Destroy()
 	end
 	
 	if val ~= "Default" and rawget(Skyboxes, val) then
 		local NewSkybox = Instance.new("Sky", game.Lighting)
-		NewSkybox.Name = "PTware_SKYBOX"
+		NewSkybox.Name = "YWKware_SKYBOX"
 		
 		for i,v in pairs(rawget(Skyboxes, val)) do
 			NewSkybox[i] = v
@@ -1051,7 +1051,7 @@ end)
 
 MiscellaneousTabCategoryMain:AddDropdown("Inventory Changer", TableToNames(Inventories), "-", "MiscellaneousTabCategoryMainInventoryChanger", function(val)
 	local InventoryLoadout = LocalPlayer.PlayerGui.GUI["Inventory&Loadout"]
-	local InventoriesData = loadstring("return "..readfile("PTware/inventories.txt"))()
+	local InventoriesData = loadstring("return "..readfile("YWKware/inventories.txt"))()
 	
 	if typeof(InventoriesData[val]) == "table" then
 		cbClient.CurrentInventory = InventoriesData[val]
@@ -1100,7 +1100,7 @@ end)
 
 MiscellaneousTabCategoryMain:AddButton("Use custom skins", function()
 	if #nocw_s == 0 then
-		for i,v in pairs(loadstring("return "..readfile("PTware/custom_skins.txt"))()) do
+		for i,v in pairs(loadstring("return "..readfile("YWKware/custom_skins.txt"))()) do
 			AddCustomSkin(v)
 			game:GetService("RunService").Stepped:Wait()
 		end
@@ -1294,7 +1294,7 @@ MiscellaneousTabCategoryMain:AddLabel("baimware 6607339542")
 MiscellaneousTabCategoryMain:AddLabel("minecraft 4018616850")
 
 
-MiscellaneousTabCategoryMain:AddMultiDropdown("Use custom models", TableToNames(loadstring("return "..readfile("PTware/custom_models.txt"))(), true), {}, "MiscellaneousTabCategoryMainCustomModels", function(val)
+MiscellaneousTabCategoryMain:AddMultiDropdown("Use custom models", TableToNames(loadstring("return "..readfile("YWKware/custom_models.txt"))(), true), {}, "MiscellaneousTabCategoryMainCustomModels", function(val)
 	if not ViewmodelsBackup then
 		ViewmodelsBackup = game.ReplicatedStorage.Viewmodels:Clone()
 	end
@@ -1303,7 +1303,7 @@ MiscellaneousTabCategoryMain:AddMultiDropdown("Use custom models", TableToNames(
 	
 	ViewmodelsBackup:Clone().Parent = game.ReplicatedStorage
 	
-	for i,v in pairs(loadstring("return "..readfile("PTware/custom_models.txt"))()) do
+	for i,v in pairs(loadstring("return "..readfile("YWKware/custom_models.txt"))()) do
 		if table.find(val, v.weaponname) then
 			AddCustomModel(v)
 		end
@@ -1434,7 +1434,7 @@ MiscellaneousTabCategoryBacktrack:AddToggle("Enabled", false, "MiscellaneousTabC
 						NewBacktrackPart.Color = library.pointers.MiscellaneousTabCategoryBacktrackColor.value
 						NewBacktrackPart.Size = v.Character.Head.Size
 						NewBacktrackPart.CFrame = v.Character.Head.CFrame
-						NewBacktrackPart.Parent = PTwareFolder
+						NewBacktrackPart.Parent = YWKwareFolder
 						
 						local BacktrackTag = Instance.new("ObjectValue")
 						BacktrackTag.Parent = NewBacktrackPart
@@ -1673,18 +1673,18 @@ local SettingsTabCategoryConfigs = SettingsTab:AddCategory("Config", 2)
 SettingsTabCategoryConfigs:AddTextBox("Config name", " name ", "SettingsTabCategoryConfigsName")
 
 SettingsTabCategoryConfigs:AddButton(" Create config ", function()
-    writefile("PTware/configs/"..library.pointers.SettingsTabCategoryConfigsName.value..".cfg", library:SaveConfiguration())
+    writefile("YWKware/configs/"..library.pointers.SettingsTabCategoryConfigsName.value..".cfg", library:SaveConfiguration())
 end)
 
 SettingsTabCategoryConfigs:AddDropdown("Select config", {" config name "}, " - ", "SettingsTabCategoryConfigsConfig")
 
 SettingsTabCategoryConfigs:AddButton("Save", function()
-    writefile("PTware/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg", library:SaveConfiguration())
+    writefile("YWKware/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg", library:SaveConfiguration())
 end)
 
 SettingsTabCategoryConfigs:AddButton("Load", function()
 	local a,b = pcall(function()
-		cfg = loadstring("return "..readfile("PTware/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg"))()
+		cfg = loadstring("return "..readfile("YWKware/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg"))()
 	end)
 	
 	if a == false then
@@ -1697,7 +1697,7 @@ end)
 SettingsTabCategoryConfigs:AddButton("Refresh configs", function()
 	local cfgs = {}
 
-	for i,v in pairs(listfiles("PTware/configs")) do
+	for i,v in pairs(listfiles("YWKware/configs")) do
 		if v:sub(-4) == ".cfg" then
 			table.insert(cfgs, v:sub(17, -5))
 		end
@@ -2122,7 +2122,7 @@ oldNamecall = hookfunc(mt.__namecall, newcclosure(function(self, ...)
 					end)
 				end
 				
-				if args[1].Parent == workspace.PTwareFolder then
+				if args[1].Parent == workspace.YWKwareFolder then
 					if args[1].PlayerName.Value.Character and args[1].PlayerName.Value.Character.Head ~= nil then
 						args[1] = args[1].PlayerName.Value.Character.Head
 					end
@@ -2261,9 +2261,9 @@ for i,v in pairs({"CT", "T"}) do
 	end)
 end
 
-if readfile("PTware/autoload.txt") ~= "" and isfile("PTware/configs/"..readfile("PTware/autoload.txt")) then
+if readfile("YWKware/autoload.txt") ~= "" and isfile("YWKware/configs/"..readfile("YWKware/autoload.txt")) then
 	local a,b = pcall(function()
-		cfg = loadstring("return "..readfile("PTware/configs/"..readfile("PTware/autoload.txt")))()
+		cfg = loadstring("return "..readfile("YWKware/configs/"..readfile("YWKware/autoload.txt")))()
 	end)
 	
 	if a == false then
@@ -2273,7 +2273,7 @@ if readfile("PTware/autoload.txt") ~= "" and isfile("PTware/configs/"..readfile(
 	end
 end
 
-print("PTware finished loading!")
+print("YWKware finished loading!")
 
 Hint.Text = "YWKware enjected!"
 wait(1.5)
